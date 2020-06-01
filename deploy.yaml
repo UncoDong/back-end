@@ -1,8 +1,7 @@
 ---
 - hosts: 47.92.85.59
   vars:
-    repo_folder: /workspace
-  remote_user: root
+    repo_folder: /workspace/workwork
   tasks:
 
     - name: "Create directory if not exists"
@@ -25,4 +24,4 @@
         force: yes
 
     - name: start server
-      shell: "cd {{ repo_folder }} && nohup sudo python {{ repo_folder }}/MusicBackEnd/manage.py runserver > {{ repo_folder }}/MusicBackEnd/Music.log 2>&1 &"
+      shell: "cd  {{ repo_folder }}/MusicBackEnd && nohup sudo python manage.py runserver > Music.log 2>&1 &"
