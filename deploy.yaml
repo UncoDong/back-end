@@ -1,5 +1,5 @@
 ---
-- hosts: 47.92.85.59
+- hosts: 0.0.0.0
   vars:
     repo_folder: /workspace/workwork
   tasks:
