@@ -3,7 +3,6 @@
   vars:
     repo_folder: /workspace/workwork
   tasks:
-
     - name: "Create directory if not exists"
       file:
         path: "{{ repo_folder }}"
