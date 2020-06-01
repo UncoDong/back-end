@@ -17,12 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
-from showpic import views
+from covert2musicscore import views
 
 urlpatterns = [
-    path('input-music-str/',views.Showindex),
-    path('change2pic/',views.ChangeMusic2Pic),
-    path('images/',views.ShowPic),
+    path('uploadstr/',views.Showindex),       # 上传字符串的页面
+    path('changestr2pic/',views.ChangeMusic2Pic), # 将字符串转换成pic
+    path('testimages/',views.ShowPic),   # 测试图片显示
     path('admin/', admin.site.urls),
 ]
 #设置静态文件路径
