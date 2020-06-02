@@ -29,14 +29,14 @@ def upload_file(request):
     if request.method == 'GET':
         return HttpResponse('就这？')
     if request.method == 'POST':
-        myFile = request.FILES.get("myfile", None)
-        print (myFile, '++++++++++++++++++++++')
-        if not myFile:
+        my_file = request.FILES.get("my_file", None)
+        print (my_file, '++++++++++++++++++++++')
+        if not my_file:
             return HttpResponse('no files for upload!')
         # 上传文件的目录
-        filpath = os.path.join("./Myapp_dealfile/static/uploadfiles", myFile.name)
+        filpath = os.path.join("./Myapp_dealfile/static/uploadfiles", my_file.name)
         destination = open(filpath, 'wb+')
-        for chunk in myFile.chunks():
+        for chunk in my_file.chunks():
             destination.write(chunk)
             print(destination, '----------------------')
         destination.close()
@@ -94,7 +94,7 @@ return:
 def method_fft(filname):
     # 处理音频
     y,rate=librosa.load(filname,sr=44100)
-    Time=librosa.get_duration(y,sr=rate)
+    # Time=librosa.get_duration(y,sr=rate)
     fft=librosa.stft(y,n_fft=1024*2)
     D=librosa.amplitude_to_db(abs(fft),ref=np.max)
     D=D+80

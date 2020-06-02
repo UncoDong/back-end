@@ -218,7 +218,6 @@ Return：
     s - Music21格式的音乐流 stream
 '''
 def musicstr_char_to_stream(music_str, play_it=True):
-    notelist = []
     s = stream.Score(id='mainScore')
     str_streams = music_str.split('|')
     measurenum = 0
