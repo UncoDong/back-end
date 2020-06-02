@@ -17,13 +17,13 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
-from Myapp_covert2musicscore import views
+from Myapp_dealfile import views
 
 urlpatterns = [
-    path('uploadfile/',views.show_uploads_index),       # 上传字符串的页面
-    path('downloadfile/',views.convert_musicstr_2_pic), # 将字符串转换成pic
-    path('testimages/',views.test_show_pic),   # 测试图片显示
-    path('admin/', admin.site.urls),
+    path('uploadindex/',views.show_uploadfile_index),       # 上传文件的接口
+    path('uploadfile/',views.upload_file),       # 上传文件的接口
+    path('downloadfile/<str:filename>',views.download_file), # 下载文件的接口
+    path('dealfile/',views.deal_file),   # 处理文件的接口
 ]
 #设置静态文件路径
 #urlpatterns += staticfiles_urlpatterns()

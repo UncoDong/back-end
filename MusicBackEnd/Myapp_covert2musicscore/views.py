@@ -21,12 +21,8 @@ def use_music21(music_str):
     else:
         print('大写字母')
         s = musicstr_char_to_stream(music_str)
-    filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-    s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%filname)
-    #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(filname)
-    command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(filname)
-    print(command)
-    os.system(command)
+
+    filname = write_xml_and_get_png(s)
     return filname
 
 
@@ -58,7 +54,7 @@ Summary:
 Return:
     首页的html
 '''
-def show_uploads_index(request):
+def show_uploadstr_index(request):
     return render(request, 'str2music.html', {})
 
 '''

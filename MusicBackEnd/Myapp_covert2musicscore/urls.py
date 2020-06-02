@@ -19,7 +19,7 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
 from Myapp_covert2musicscore import views
 urlpatterns = [
-    path('uploadstr/',views.show_uploads_index),       # 上传字符串的页面
+    path('uploadstr/',views.show_uploadstr_index),       # 上传字符串的页面
     path('changestr2pic/',views.convert_musicstr_2_pic), # 将字符串转换成pic
     path('testimages/',views.test_show_pic),   # 测试图片显示
     path('admin/', admin.site.urls),

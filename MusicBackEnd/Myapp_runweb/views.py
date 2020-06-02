@@ -1,9 +1,6 @@
 from django.shortcuts import render
 
 # Create your views here.
-
-
-
 '''
 Summary:
     展示主页

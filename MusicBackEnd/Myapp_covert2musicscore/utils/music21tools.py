@@ -1,8 +1,10 @@
 from music21 import *
-
+import os
+import shutil
 PitchClass = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 TypeClass = ['64th', '32nd', '16th', 'eighth', 'quarter', 'half', 'whole']
-
+import librosa
+import time
 
 class StrNote:
     ''''''
@@ -105,7 +107,45 @@ def isnum(input):
         return True
     except:
         return False
+'''
+Summay:
+    辅助musicstr_to_stream进行处理
+    处理是数字的
+'''
+def deal_is_num(lowerflag,higherflag,shotterflag,sharpflag,each):
+    midnote = StrNote(int(each))
+    if lowerflag == True:
+        midnote.lower()
+    if higherflag == True:
+        midnote.higher()
+    if shotterflag != 0:
+        for i in range(shotterflag):
+            midnote.shotter()
+        if sharpflag == True:
+            midnote.setsharp()
+            # print(midnote)
+            sharpflag = False
+    return midnote,sharpflag
 
+'''
+Summay:
+    辅助musicstr_to_stream进行处理
+    处理不是数字的
+'''
+def deal_is_not_num(lowerflag,higherflag,shotterflag,sharpflag,each):
+    if each == '(':
+        lowerflag = True
+    elif each == ')':
+        lowerflag = False
+    elif each == '[':
+        higherflag = True
+    elif each == ']':
+        higherflag = False
+    elif each == '<':
+        shotterflag += 1
+    elif each == '>':
+        shotterflag -= 1
+    return lowerflag,higherflag,shotterflag,sharpflag
 
 '''
 Summay:
@@ -117,7 +157,7 @@ Return：
     s - Music21格式的音乐流 stream
 '''
 def musicstr_to_stream(music_str, play_it=True):
-    notelist = []
+
     s = stream.Score(id='mainScore')
     '''
     lowerflag  -  低音标志()
@@ -126,6 +166,7 @@ def musicstr_to_stream(music_str, play_it=True):
     longgerflag - 长时标志--
 
     '''
+    notelist = []
     lowerflag = False
     higherflag = False
     sharpflag = False
@@ -136,33 +177,11 @@ def musicstr_to_stream(music_str, play_it=True):
         print("每一个",each)
         # print(each)
         if isnum(each):
-            midnote = StrNote(int(each))
-            if lowerflag == True:
-                midnote.lower()
-            if higherflag == True:
-                midnote.higher()
-            if shotterflag != 0:
-                for i in range(shotterflag):
-                    midnote.shotter()
-            if sharpflag == True:
-                midnote.setsharp()
-                # print(midnote)
-                sharpflag = False
+            midnote,sharpflag = deal_is_num(lowerflag,higherflag,shotterflag,sharpflag,each)
             notelist.append(midnote)
         else:
-            if each == '(':
-                lowerflag = True
-            elif each == ')':
-                lowerflag = False
-            elif each == '[':
-                higherflag = True
-            elif each == ']':
-                higherflag = False
-            elif each == '<':
-                shotterflag += 1
-            elif each == '>':
-                shotterflag -= 1
-            elif each == '.':
+            lowerflag,higherflag,shotterflag,sharpflag = deal_is_not_num(lowerflag,higherflag,shotterflag,sharpflag,each)
+            if each == '.':
                 notelist[len(notelist) - 1].adddot()
             elif each == '-':
                 notelist[len(notelist) - 1].longer()
@@ -175,7 +194,6 @@ def musicstr_to_stream(music_str, play_it=True):
                 measurenum += 1
                 for eachnote in notelist:
                     midstream.append(eachnote.getnote())
-
                 s.append(midstream)
                 notelist.clear()
             else:
@@ -186,7 +204,6 @@ def musicstr_to_stream(music_str, play_it=True):
         for eachnote in notelist:
             midstream.append(eachnote.getnote())
         s.append(midstream)
-
         notelist.clear()
     return s
 
@@ -236,6 +253,41 @@ def musicstr_char_to_stream(music_str, play_it=True):
             midstream.append(thisnote)
         s.append(midstream)
     return s
+
+
+'''
+Summary:   
+    根据输入流写入xml，并生成png
+return:
+    文件名
+'''
+def write_xml_and_get_png(s):
+    filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%filname)
+    #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(filname)
+    command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(filname)
+    print(command)
+    os.system(command)
+    return filname
+
+'''
+Summary:   
+    根据输入流写入midi，并生成wav
+return:
+    文件名
+'''
+def write_xml_and_get_wav(s):
+    filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    # 写入midi
+    s.write('midi','./Myapp_covert2musicscore/musicfile/%s.mid'%filname)
+    # 执行java指令
+    os.system('java -jar ./midi2wav.jar ./Myapp_covert2musicscore/musicfile/%s.mid'%filname)
+    # 移动文件
+    shutil.copyfile('./Myapp_covert2musicscore/musicfile/%s.wav'%filname,'./Myapp_dealfile/static/wavfiles/%s.wav'%filname)
+    # 删除原来wav文件
+    os.remove('./Myapp_covert2musicscore/musicfile/%s.wav'%filname)
+
+    return filname
 
 
 if __name__ == '__main__':

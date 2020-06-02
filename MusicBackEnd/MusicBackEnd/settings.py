@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'Myapp_dealfile',
     'Myapp_runweb',
     'Myapp_covert2musicscore',
     'django.contrib.admin',
