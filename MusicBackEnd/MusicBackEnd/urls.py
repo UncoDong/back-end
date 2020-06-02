@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.urls import path,include
 
 urlpatterns = [
-    path('covert2musicscore/', include('covert2musicscore.urls')),
+    path('Myapp_covert2musicscore/', include('Myapp_covert2musicscore.urls')),
+    path('Myapp_runweb/', include('Myapp_runweb.urls')),
     path('admin/', admin.site.urls),
 ]
 

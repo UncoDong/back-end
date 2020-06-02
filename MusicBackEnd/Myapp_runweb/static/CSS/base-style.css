@@ -1,0 +1,66 @@
+* {/*去除内外边距*/
+    margin: 0;
+    padding: 0;
+}
+
+em,
+i {/*字体不倾斜*/
+    font-size: none;
+}
+
+li {/*去除小圆点*/
+    list-style: none;
+}
+
+img {/*去除低版本浏览器下链接图片的边框*/
+    border: 0;
+    /*取消图片底部空白空隙*/
+    vertical-align: middle
+}
+
+button {/*鼠标经过时，鼠标样式变化*/
+    cursor: pointer;
+}
+
+a {
+    color: #666;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c81623;
+}
+
+botton,
+input {
+    font-family: "Microsoft Yahei";
+}
+
+body {
+    /*抗锯齿*/
+    -webkit-font-smoothing: antialiased;
+    background-color: #fff;
+    font: 12px/1.5 "Microsoft Yahei"；
+}
+
+.hide,
+.none {
+    display: none;
+}
+
+/*清除浮动*/
+.clearfix:after {
+    visibility:hidden;
+    clear: both;
+    display: block;
+    content: ".";
+    height: 0;
+}
+
+.clearfix {
+    *zoom: 1;
+}
+body {
+    background: rgba(255,255,255,0.3) url(../img/bg_headphone.jpg) no-repeat center fixed;
+    background-size:cover;
+}
