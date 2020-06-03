@@ -99,7 +99,7 @@ html {
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    -webkit-tap-highlight-color: rgba(0, 140, 255, 0)
 }
 
 html.overflow-y-hidden {
@@ -343,7 +343,7 @@ html.overflow-y-hidden {
 }
 
 .piano-wrap.piano .piano-key-wrap .wkey.auto-key-active {
-    background: #facc94 !important
+    background: #94b4fa !important
 }
 
 .piano-wrap.piano .piano-key-wrap .bkey.auto-key-active {
@@ -427,7 +427,7 @@ html.overflow-y-hidden {
     line-height: 44px;
     padding: 0 15px;
     font-weight: 700;
-    color: #000;
+    color: rgba(31, 63, 150, 0.959);
     background: #fff;
     border-radius: 5px;
     cursor: pointer

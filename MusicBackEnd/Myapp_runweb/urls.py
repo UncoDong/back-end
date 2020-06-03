@@ -22,6 +22,11 @@ from Myapp_runweb import views
 urlpatterns = [
     path('home/',views.home),       # 展示主页
     path('str2musicscore/',views.str_to_musicscore), # 显示钢琴页面
+    path('wavescope/',views.wave_scope), # 波形图
+    path('pianoOnline/',views.piano_online), # 在线钢琴
+    path('metronome/',views.metronome), # 节拍器
+    path('file2musicscore/',views.file_to_musicscore), # 节拍器
+
 ]
 #设置静态文件路径
 #urlpatterns += staticfiles_urlpatterns()

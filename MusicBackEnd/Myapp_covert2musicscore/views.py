@@ -22,8 +22,9 @@ def use_music21(music_str):
         print('大写字母')
         s = musicstr_char_to_stream(music_str)
 
-    filname = write_xml_and_get_png(s)
-    return filname
+
+    png_filname = write_xml_and_get_png(s)
+    return png_filname
 
 
 '''

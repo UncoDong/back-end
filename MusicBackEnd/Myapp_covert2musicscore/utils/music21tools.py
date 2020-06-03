@@ -261,13 +261,14 @@ return:
     文件名
 '''
 def write_xml_and_get_png(s):
-    filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-    s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%filname)
+    #print('此处的文件名',filname)
+    png_filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%png_filname)
     #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(filname)
-    command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(filname)
+    command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(png_filname)
     print(command)
     os.system(command)
-    return filname
+    return png_filname
 
 '''
 Summary:   
@@ -276,17 +277,17 @@ return:
     文件名
 '''
 def write_xml_and_get_wav(s):
-    filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    wav_filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
     # 写入midi
-    s.write('midi','./Myapp_covert2musicscore/musicfile/%s.mid'%filname)
+    s.write('midi','./Myapp_covert2musicscore/musicfile/%s.mid'%wav_filname)
     # 执行java指令
-    os.system('java -jar ./midi2wav.jar ./Myapp_covert2musicscore/musicfile/%s.mid'%filname)
+    os.system('java -jar ./midi2wav.jar ./Myapp_covert2musicscore/musicfile/%s.mid'%wav_filname)
     # 移动文件
-    shutil.copyfile('./Myapp_covert2musicscore/musicfile/%s.wav'%filname,'./Myapp_dealfile/static/wavfiles/%s.wav'%filname)
+    shutil.copyfile('./Myapp_covert2musicscore/musicfile/%s.wav'%wav_filname,'./Myapp_dealfile/static/wavfiles/%s.wav'%wav_filname)
     # 删除原来wav文件
-    os.remove('./Myapp_covert2musicscore/musicfile/%s.wav'%filname)
+    os.remove('./Myapp_covert2musicscore/musicfile/%s.wav'%wav_filname)
 
-    return filname
+    return wav_filname
 
 
 if __name__ == '__main__':

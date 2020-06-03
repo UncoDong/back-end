@@ -40,9 +40,11 @@ def upload_file(request):
             destination.write(chunk)
             print(destination, '----------------------')
         destination.close()
-        method_fft(filpath)
-
-        return HttpResponse('完毕')
+        print('上传结束')
+        # 这里进行转换
+        musicname = method_fft(filpath)
+        return render(request, 'test_show_musicscore_pic.html', {'musicname':musicname+'-1.png'})
+        #return HttpResponse('完毕')
 
 '''
 Summary:
@@ -102,8 +104,12 @@ def method_fft(filname):
     data,num=getNoteAndNum(data)
     # 文件信息转换成流
     s = musicfile_fft_to_stream(data,num)
-    write_xml_and_get_png(s)
-    write_xml_and_get_wav(s)
+
+    musicname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
+    print('音乐名字',musicname)
+    png_filname = write_xml_and_get_png(s)
+    wav_filname = write_xml_and_get_wav(s)
+    return png_filname
 
 
 

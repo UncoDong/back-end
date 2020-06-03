@@ -2,7 +2,7 @@ header {
     height: 50px;
     width: 100%;
     position: sticky;
-    background-color: rgb(238, 150, 165);
+    background-color: skyblue;
     top: 0px;
     z-index: 1;
     opacity: 0.8;
@@ -17,7 +17,7 @@ nav {
     margin: 15px auto 0;
 }
 .id-nav {
-    /* background-color: pink; */
+    /* background-color: skyblue; */
     float: left;
     width: 30%;
     height: 100%;
@@ -28,7 +28,7 @@ nav {
     height: 60px;
     width: 100%;
     line-height: 60px;
-    background-color: pink;
+    background-color: skyblue;
     transition: background-color 0.5s;
 }
 .id-nav li a:hover {
@@ -103,10 +103,10 @@ nav {
     position: relative;
     width: 900px;
     height: 200px;
-    background-color: rgba(230, 182, 182, 0.822);
+    background-color: rgba(255, 255, 255, 0.822);
     margin: 0px auto 0;
     box-sizing: border-box;
-    
+    border-radius: 5px;
 
 }
 .demo::before{
@@ -132,7 +132,8 @@ nav {
     background-color: green;
     bottom: 50px;
     left: 50%;
-    margin-left: 455px;
+    margin-left: 500px;
+    border-radius: 10px 10px 30px;
 }
 footer {
     background-color: rgb(255, 255, 255);
@@ -149,4 +150,18 @@ footer {
     padding-top: 65px;
     background-color: rgb(102, 34, 34);
     font-size: 0;
+}
+
+.demo a span {
+    position: absolute;
+    width: 75px;
+    height: 30px;
+    border-radius: 10px;
+    border: 1px solid skyblue ;
+    cursor: pointer;
+    background-color: rgba(255,255,255,0.3);
+    bottom: 25px;
+    right: 25px;
+    text-align: center;
+    line-height: 30px;
 }
