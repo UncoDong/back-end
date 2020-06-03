@@ -5,6 +5,7 @@ PitchClass = ['C', 'D', 'E', 'F', 'G', 'A', 'B']
 TypeClass = ['64th', '32nd', '16th', 'eighth', 'quarter', 'half', 'whole']
 import librosa
 import time
+import traceback
 
 class StrNote:
     ''''''
@@ -147,6 +148,25 @@ def deal_is_not_num(lowerflag,higherflag,shotterflag,sharpflag,each):
         shotterflag -= 1
     return lowerflag,higherflag,shotterflag,sharpflag
 
+
+'''
+Summay:
+    添加midstream
+'''
+def add_mid_stream(notelist,measurenum):
+    midstream = stream.Measure(number=measurenum)
+    measurenum += 1
+    for eachnote in notelist:
+        midstream.append(eachnote.getnote())
+    return midstream
+
+
+'''
+Summay:
+    添加midstream
+'''
+
+
 '''
 Summay:
     将字符串简谱转换成音乐流
@@ -164,7 +184,6 @@ def musicstr_to_stream(music_str, play_it=True):
     higherflag -  高音标志[]
     shotterflag - 短时标志<>
     longgerflag - 长时标志--
-
     '''
     notelist = []
     lowerflag = False
@@ -190,22 +209,32 @@ def musicstr_to_stream(music_str, play_it=True):
             elif each == 'b':
                 notelist[len(notelist) - 1].setflat()
             elif each == '|':
-                midstream = stream.Measure(number=measurenum)
-                measurenum += 1
-                for eachnote in notelist:
-                    midstream.append(eachnote.getnote())
+                midstream = add_mid_stream(notelist,measurenum)
                 s.append(midstream)
                 notelist.clear()
             else:
                 continue
 
     if len(notelist) != 0:
-        midstream = stream.Measure(number=measurenum)
-        for eachnote in notelist:
-            midstream.append(eachnote.getnote())
+        midstream = add_mid_stream(notelist,measurenum)
         s.append(midstream)
-        notelist.clear()
     return s
+
+
+def analyse_each_strnote(each_strnote,type,dot):
+    print('正在识别',each_strnote)
+    # 如果是<<>>的
+    while '<' in each_strnote:
+        each_strnote = each_strnote[1:-1]
+        type -= 1
+        # 如果是长音的
+    while '-' in each_strnote:
+        each_strnote = each_strnote[1:-1]
+        if type == 5 and dot == 0:
+            dot = 1
+        else:
+            type += 1
+    return each_strnote,type,dot
 
 
 '''
@@ -231,25 +260,19 @@ def musicstr_char_to_stream(music_str, play_it=True):
         # 定义每个小节的因父流
         midstream = stream.Measure(number=measurenum)
         for each_strnote in str_notes :
-            if each_strnote == '':
-                continue
-            print('正在识别',each_strnote)
-            # 如果是<<>>的
-            while '<' in each_strnote:
-                each_strnote = each_strnote[1:-1]
-                type -= 1
-            # 如果是长音的
-            while '-' in each_strnote:
-                each_strnote = each_strnote[1:-1]
-                if type == 5 and dot == 0:
-                    dot = 1
-                else:
-                    type += 1
-            print('音符识别结果',each_strnote,type,dot)
-            thisnote = note.Note(each_strnote)
-            thisnote.duration.type = TypeClass[type]
-            thisnote.duration.dots = dot
-            midstream.append(thisnote)
+            try:
+                if each_strnote == '':
+                    continue
+                each_strnote,type,dot = analyse_each_strnote(each_strnote,type,dot)
+                print('音符识别结果',each_strnote,type,dot)
+                thisnote = note.Note(each_strnote)
+                thisnote.duration.type = TypeClass[type]
+                thisnote.duration.dots = dot
+                midstream.append(thisnote)
+            except:
+                print('出错啦')
+                print('当前:',each_strnote)
+                print(traceback.format_exc())
         s.append(midstream)
     return s
 
@@ -263,8 +286,11 @@ return:
 def write_xml_and_get_png(s):
     #print('此处的文件名',filname)
     png_filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
-    s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%png_filname)
-    #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(filname)
+    print('写入文件')
+    #s.show('text')
+    show = s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%png_filname)
+    print('结果',show)
+    #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(png_filname)
     command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(png_filname)
     print(command)
     os.system(command)
@@ -276,7 +302,7 @@ Summary:
 return:
     文件名
 '''
-def write_xml_and_get_wav(s):
+def write_midi_and_get_wav(s):
     wav_filname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
     # 写入midi
     s.write('midi','./Myapp_covert2musicscore/musicfile/%s.mid'%wav_filname)

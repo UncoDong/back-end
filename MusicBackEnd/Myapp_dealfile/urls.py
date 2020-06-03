@@ -20,7 +20,7 @@ from django.contrib import staticfiles
 from Myapp_dealfile import views
 
 urlpatterns = [
-    path('uploadindex/',views.show_uploadfile_index),       # 上传文件的接口
+    path('uploadindex/',views.show_uploadfile_index),       # 上传文件的首页
     path('uploadfile/',views.upload_file),       # 上传文件的接口
     path('downloadfile/<str:filename>',views.download_file), # 下载文件的接口
     path('dealfile/',views.deal_file),   # 处理文件的接口

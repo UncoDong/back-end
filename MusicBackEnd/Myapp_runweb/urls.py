@@ -27,6 +27,7 @@ urlpatterns = [
     path('metronome/',views.metronome), # 节拍器
     path('file2musicscore/',views.file_to_musicscore), # 节拍器
 
+
 ]
 #设置静态文件路径
 #urlpatterns += staticfiles_urlpatterns()

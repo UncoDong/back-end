@@ -22,9 +22,9 @@ def use_music21(music_str):
         print('大写字母')
         s = musicstr_char_to_stream(music_str)
 
-
     png_filname = write_xml_and_get_png(s)
-    return png_filname
+    wav_filname = write_midi_and_get_wav(s)
+    return png_filname+'-1.png',wav_filname+'.wav'
 
 
 '''
@@ -43,10 +43,11 @@ def convert_musicstr_2_pic(request):
         music_str = request.POST.get('str-container')
         print(request.POST)
         print(music_str)
-    musicname = use_music21(music_str)
+    musicname,wavname = use_music21(music_str)
 
+    return render(request, 'preview.html', {'musicname':musicname,'wavname':wavname})
     # 将字符串放入上下文，以后用
-    return render(request, 'test_show_musicscore_pic.html', {'musicname':musicname+'-1.png'})
+    # return render(request, 'test_show_musicscore_pic.html', {'musicname':musicname+'-1.png'})
 
 
 '''
@@ -66,6 +67,11 @@ Return:
 '''
 def test_show_pic(request):
     print('到这里')
-    template = loader.get_template('Myapp_covert2musicscore/test_show_musicscore_pic.html')
+    template = loader.get_template('test_show_musicscore_pic.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+
+
+
+

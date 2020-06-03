@@ -10,6 +10,16 @@ from django.template import loader
 import chardet     # 获取上传文件编码格式
 from Myapp_covert2musicscore.utils.music21tools import *
 from Myapp_dealfile.utils.util import *
+
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
+import json
+import os
+from django.http import HttpResponse,StreamingHttpResponse
+from django.conf import settings
+from django.utils.http import urlquote
+from django.views import generic
 '''
 Summary:
     展示文件上传的首页
@@ -42,9 +52,9 @@ def upload_file(request):
         destination.close()
         print('上传结束')
         # 这里进行转换
-        musicname = method_fft(filpath)
-        return render(request, 'test_show_musicscore_pic.html', {'musicname':musicname+'-1.png'})
-        #return HttpResponse('完毕')
+        musicname,wavname = method_fft(filpath)
+        return render(request, 'preview.html', {'musicname':musicname,'wavname':wavname})
+        #return render(request, 'test_show_musicscore_pic.html', {'musicname':musicname+'-1.png'})
 
 '''
 Summary:
@@ -96,20 +106,20 @@ return:
 def method_fft(filname):
     # 处理音频
     y,rate=librosa.load(filname,sr=44100)
-    # Time=librosa.get_duration(y,sr=rate)
     fft=librosa.stft(y,n_fft=1024*2)
     D=librosa.amplitude_to_db(abs(fft),ref=np.max)
     D=D+80
-    data=music2note(D,rate/2)
-    data,num=getNoteAndNum(data)
+    data=music_to_note(D,rate/2)
+    data,num=get_note_and_num(data)
     # 文件信息转换成流
     s = musicfile_fft_to_stream(data,num)
 
     musicname = time.strftime("%Y_%m_%d_%H_%M_%S", time.localtime())
     print('音乐名字',musicname)
     png_filname = write_xml_and_get_png(s)
-    wav_filname = write_xml_and_get_wav(s)
-    return png_filname
+    wav_filname = write_midi_and_get_wav(s)
+    #print(wav_filname)
+    return png_filname+'-1.png',wav_filname+'.wav'
 
 
 

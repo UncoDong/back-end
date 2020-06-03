@@ -3,12 +3,12 @@ import librosa.display
 import numpy as np
 import matplotlib.pyplot as plt
 
-def loadFile(filename,rate):
+def load_file(filename,rate):
     path=filename
     y,sr=librosa.load(path,sr=rate)
     return y,sr
 
-def music2note(data,rate):
+def music_to_note(data,rate):
     data=np.transpose(data)
     data=data/data.max()
     data[data<0.75]=0
@@ -26,7 +26,7 @@ def music2note(data,rate):
 
     return  Note
 
-def getNoteAndNum(data):
+def get_note_and_num(data):
     data.append('#')
     N=data[0]
     count=1
@@ -42,7 +42,7 @@ def getNoteAndNum(data):
             N=data[i]
     return Note,Count
 
-def Normlize(data,num):
+def normlize(data,num):
     Data=[]
     Num=[]
     for i in range(len(data)):
@@ -52,7 +52,7 @@ def Normlize(data,num):
             Num.append(num[i])
     return Data,Num
 
-def saveFile(filename,data,num=None):
+def save_file(filename,data,num=None):
     if num!=None:
         output = open(filename,'w+')
         for i in range(len(data)):
@@ -69,7 +69,7 @@ def saveFile(filename,data,num=None):
             output.write('\n')
         output.close()
 
-def note2note(data):
+def note_to_note(data):
     Data=[]
     noteDic={'C5':'1','D5':'2','E5':'3','F5':'4','G5':'5','A5':'6','B5':'7',
              'C4':'(1)','D4':'(2)','E4':'(3)','F4':'(4)','G4':'(5)','A4':'(6)','B4':'(7)',
@@ -81,26 +81,26 @@ def note2note(data):
             Data.append(noteDic[x])
     return Data
 
-def singleNote(filename,sr):
+def single_note(filename,sr):
     y,rate=librosa.load(filename,sr)
     Time=librosa.get_duration(y,sr=rate)
     fft=librosa.stft(y,n_fft=1024*2)
     D=librosa.amplitude_to_db(abs(fft),ref=np.max)
     D=D+80
-    data=music2note(D,rate/2)
-    Data=note2note(data)
+    data=music_to_note(D,rate/2)
+    Data=note_to_note(data)
     return data,Data
 
-def mergeNote(filename,sr):
-    y,rate=loadFile(filename,sr)
+def merge_note(filename,sr):
+    y,rate=load_file(filename,sr)
     Time=librosa.get_duration(y,sr=rate)
     fft=librosa.stft(y,n_fft=1024*2)
     D=librosa.amplitude_to_db(abs(fft),ref=np.max)
     D=D+80
-    data=music2note(D,rate/2)
-    data,num=getNoteAndNum(data)
-    data,num=Normlize(data,num)
-    Data=note2note(data)
+    data=music_to_note(D,rate/2)
+    data,num=get_note_and_num(data)
+    data,num=normlize(data,num)
+    Data=note_to_note(data)
     return data,Data,num
 
 def plib(data):
@@ -114,24 +114,6 @@ if __name__=='__main__':
     fft=librosa.stft(y,n_fft=1024*2)
     D=librosa.amplitude_to_db(abs(fft),ref=np.max)
     D=D+80
-    data=music2note(D,rate/2)
-    data,num=getNoteAndNum(data)
-    #data,num=Normlize(data,num)
-    #Data=note2note(data)
+    data=music_to_note(D,rate/2)
+    data,num=get_note_and_num(data)
 
-##    output = open('mer1.txt', 'w+')
-##    for i in range(len(data)):
-####        output.write(Data[i])
-####        output.write('  ')
-##        output.write(data[i])
-##        output.write('  ')
-##        output.write(str(num[i]))
-##        output.write('\n')
-##    output.close()
-
-    # data,Data,num=mergeNote('happy.wav',44100,0,10)
-    # saveFile('1.txt',data,num)
-    # data1,Data1,num1=mergeNote('happy.wav',44100,0,5)
-    # saveFile('2.txt',data1,num1)
-    # data2,Data2,num2=mergeNote('happy.wav',44100,5,5)
-    # saveFile('3.txt',data2,num2)
