@@ -290,7 +290,7 @@ def write_xml_and_get_png(s):
     #s.show('text')
     show = s.write('musicxml','./Myapp_covert2musicscore/musicxml/%s.xml'%png_filname)
     print('结果',show)
-    #command = '/usr/bin/musescore ./showpic/musicxml/{0}.xml -o ./showpic/static/musicpng/{0}.png'.format(png_filname)
+    #command = '/usr/bin/musescore ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(png_filname)
     command = 'MuseScore3 ./Myapp_covert2musicscore/musicxml/{0}.xml -o ./Myapp_covert2musicscore/static/musicpng/{0}.png'.format(png_filname)
     print(command)
     os.system(command)
