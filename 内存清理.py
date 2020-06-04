@@ -10,7 +10,7 @@ def eachFile(filepath):
             end = os.path.splitext(newDir)[1]
             #print(end)
             if end!='.js' and end!='.css':
-                if  end == ".xml" or '-' in file: 
+                if  end == ".xml" or '-' in file or end == ".wav" or end == ".mid": 
                     os.remove(newDir)
                     #print(newDir)
         else:
