@@ -11,7 +11,7 @@ body {
     background-color: rgba(236, 231, 231, 0.911)
 }
 nav {
-    background-color: green;
+    background-color: rgba(255, 255, 255，0);
     height: 300px;
     width: 900px;
     margin: 15px auto 0;
@@ -32,7 +32,7 @@ nav {
     transition: background-color 0.5s;
 }
 .id-nav li a:hover {
-    background-color: #333;
+    background-color: rgb(112, 112, 112);
     
 }
 
@@ -63,6 +63,7 @@ nav {
     transition: opacity 0.5s;
     color: gold;
     cursor: pointer;
+    user-select: none;
     
 }
 .prev{
@@ -107,7 +108,11 @@ nav {
     margin: 0px auto 0;
     box-sizing: border-box;
     border-radius: 5px;
+    box-shadow: 2px 2px 3px #aaa;
 
+}
+nav {
+    box-shadow: 2px 2px 3px rgb(24, 24, 24);
 }
 .demo::before{
     content: '';
@@ -129,11 +134,18 @@ nav {
     position: fixed;
     height: 30px;
     width: 30px;
-    background-color: green;
+    background-color: skyblue;
     bottom: 50px;
     left: 50%;
     margin-left: 500px;
-    border-radius: 10px 10px 30px;
+    border-radius: 30px;
+    transition: all 0.5s;
+    box-shadow: 2px 2px 3px #aaa;
+}
+.return-top:hover {
+    
+    border-radius: 5px 5px 30px;
+    border-top-color: skyblue ;
 }
 footer {
     background-color: rgb(255, 255, 255);

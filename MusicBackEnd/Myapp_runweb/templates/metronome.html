@@ -6,208 +6,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>节拍器</title>
     <link rel="stylesheet" href="/static/CSS/base-style.css">
-    <style>
-        * {
-            padding: 0;
-            margin: 0;
-        }
-
-
-        footer {
-            padding: 20px;
-            text-align: center;
-            color: #ccc;
-        }
-
-        footer>a {
-            color: #999;
-        }
-
-        body>section {
-            text-align: center;
-            padding: 20px;
-            width: 300px;
-            margin: auto;
-        }
-
-        body>section>section {
-            margin: 30px auto;
-        }
-
-        body>section>section>div {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        button {
-            padding: 5px 10px;
-        }
-
-        #btnTest {
-            padding: 15px 30px;
-            font-size: 20px;
-        }
-
-        #btnStop {
-            display: none;
-        }
-
-        #speed {
-            font-size: 50px;
-            padding: 0 20px;
-            width: 100px;
-        }
-
-        #msg {
-            height: 20px;
-            padding-top: 5px;
-            font-size: 9px;
-            color: gray;
-        }
-    </style>
-    <script>
-
-        document.addEventListener("DOMContentLoaded", function () {
-
-            let speed = 60, //节拍速度
-                arrClick = [],  //测速时每次点击的速度组成的数组，节拍速度取其平均值
-                clickTime = 0,  //测速点击计时器，超过 3 秒清空数组
-                s = Date.now(), //记录每一次点击的时间，下一次点击时与此时间的间隔，来计算速度
-                time = 0,   //play 过程 timeout 变量
-                isPlay = false, //是否正在播放
-                speedMsg = document.getElementById("speed"),    //页面正中间显示速度值的元素
-                rangeValue = document.getElementById("rangeValue"), //滑块元素
-                showSpeed = () => rangeValue.value = speedMsg.innerText = speed;    //更新显示速度值的函数
-
-            /** 测速按钮点击 */
-            document.getElementById("btnTest").addEventListener("click", function () {
-                let lastSpeed = Math.floor(60000 / (Date.now() - s));
-                if (lastSpeed - arrClick[arrClick.length - 1] > 30) { arrClick = []; }  //如果点击时间和上次差别较大，则清零重测
-                arrClick.push(lastSpeed);
-
-                if (arrClick.length > 31) arrClick.shift(); //最大容量保持在30个（除去第 1 个不用）
-
-                //如果数量多于1个则计算速度（第 1 个时间间隔太久，不准确，弃之）
-                if (arrClick.length > 1) {
-                    //取第2个到最后的平均值
-                    speed = Math.ceil((arrClick.reduce((sum, n) => sum + n) - arrClick[0]) / (arrClick.length - 1));
-                    if (arrClick.length > 5) document.getElementById("msg").innerText = "多点几次更准确...";
-                }
-                showSpeed();
-                s = Date.now();
-                document.getElementById("btnStop").click(); //测速时停止播放
-
-                //两次点击间隔大于 3 秒就重置
-                window.clearTimeout(clickTime);
-                clickTime = window.setTimeout(function () {
-                    arrClick = [];
-                    document.getElementById("msg").innerText = "";
-                }, 3000);
-
-            });
-
-            /** 播放按钮点击 */
-            document.getElementById("btnPlay").addEventListener("click", function () {
-                isPlay = true;
-                play();
-                this.style.display = "none";
-                document.getElementById("btnStop").style.display = "inline-block";
-            });
-
-            /** 停止按钮点击 */
-            document.getElementById("btnStop").addEventListener("click", function () {
-                window.clearTimeout(time);
-                isPlay = false;
-                this.style.display = "none";
-                document.getElementById("btnPlay").style.display = "inline-block";
-            });
-
-            /** 减号按钮点击 */
-            document.getElementById("btnSub").addEventListener("click", function () {
-                speed--;
-                showSpeed();
-            });
-
-            /** 加号按钮点击 */
-            document.getElementById("btnAdd").addEventListener("click", function () {
-                speed++;
-                showSpeed();
-            });
-
-            /** 滑动条更改 */
-            rangeValue.addEventListener("change", function () {
-                speed = this.value * 1;
-                showSpeed();
-            });
-
-            /** 播放 */
-            let play = () => {
-                window.clearTimeout(time);
-                playsound();
-                if (isPlay) {
-                    time = window.setTimeout(play, Math.floor(60000 / speed));
-                };
-            }
-
-            let audioCtx = new AudioContext();
-            /** 发声 */
-            let playsound = () => {
-                let oscillator = audioCtx.createOscillator();
-                let gainNode = audioCtx.createGain();
-                oscillator.connect(gainNode);
-                gainNode.connect(audioCtx.destination);
-                oscillator.type = 'sine';
-                oscillator.frequency.setValueAtTime(220, audioCtx.currentTime);
-                oscillator.frequency.linearRampToValueAtTime(50, audioCtx.currentTime + 0.1);
-                gainNode.gain.setValueAtTime(0, audioCtx.currentTime);
-                gainNode.gain.linearRampToValueAtTime(1, audioCtx.currentTime + 0.01);
-                gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-                oscillator.start(audioCtx.currentTime);
-                oscillator.stop(audioCtx.currentTime + 0.5);
-            }
-        });
-    </script>
+    <link rel="stylesheet" href="/static/CSS/metronome.css">
+    <script src="/static/JavaScript/metronome.js"></script>
 
 </head>
 
 <body>
     <header id="header">
+        <a href="/Myapp_runweb/home"><span class="home-label">听音撰谱主页</span></a>
+        <div class="lable-contaner clearfix">
+            <a href="/Myapp_runweb/metronome">
+                <li class="label lab1 current-lable">网页节拍器
+            </a></li></a>
+            <a href="/Myapp_runweb/wavescope">
+                <li class="label lab2">在线音波图展示</li>
+            </a>
+            <a href="/Myapp_runweb/str2musicscore">
+                <li class="label lab3">字符串生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/file2musicscore">
+                <li class="label lab4">音频文件生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/pianoOnLine">
+                <li class="label lab5">HTML5网页钢琴</li>
+            </a>
+        </div>
 
     </header>
-    <section>
-        <button id="btnTest">连续点击测速</button>
-        <div id="msg"></div>
-        <section>
+    <section class="container">
+        <div class="speedcontrol">
             <div>
-                <button id="btnSub"><svg style="width: 16px; height: 16px;vertical-align: middle;"
-                        viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M66.462276 431.621065l891.075447 0 0 127.296492L66.462276 558.917558 66.462276 431.621065z">
-                        </path>
-                    </svg></button>
+                <span id="btnSub" class="btn">-</span>
                 <div id="speed">60</div>
-                <button id="btnAdd"><svg style="width: 16px; height: 16px;vertical-align: middle;"
-                        viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1024 448H576V0H448v448H0v128h448v448h128V576h448z"></path>
-                    </svg></button>
+                <span id="btnAdd" class="btn">+</span>
             </div>
-            <div><input type="range" style="width:100%;" min="20" max="300" id="rangeValue" value="60"></div>
-        </section>
-        <button id="btnPlay">
-            <svg style="width: 32px; height: 32px;vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M196.394461 103.235223 196.394461 920.764777 827.604516 535.079648Z"></path>
-            </svg>
-        </button>
-        <button id="btnStop">
-            <svg style="width: 32px; height: 32px;vertical-align: middle;" viewBox="0 0 1024 1024" version="1.1"
-                xmlns="http://www.w3.org/2000/svg">
-                <path d="M256 256l512 0 0 512-512 0z"></path>
-            </svg>
-        </button>
+
+        </div>
+        <div>
+            <input type="range" min="20" max="300" id="rangeValue" value="60">
+        </div>
+        <span id="btnTest" class="btn">连续点击测速</span>
+        <span id="btnPlay" class="btn">开始</span>
     </section>
-    <footer>2018-02-05 by <a href="mailto://zk1218@gmail.com">zhangkai</a></footer>
+    <footer>
+        2020-06-02 by <a href="https://github.com/Asa-kura/note">Asakura</a>
+    </footer>
 </body>
 
 </html>

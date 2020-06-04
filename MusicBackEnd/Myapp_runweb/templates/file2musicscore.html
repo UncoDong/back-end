@@ -6,23 +6,46 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/static/CSS/base-style.css">
-</head>
+    <link rel="stylesheet" href="/static/CSS/file-area.css">
+
+
 
 <body>
     <header id="header">
+        <a href="/Myapp_runweb/home"><span class="home-label">听音撰谱主页</span></a>
+        <div class="lable-contaner clearfix">
+            <a href="/Myapp_runweb/metronome">
+                <li class="label lab1">网页节拍器
+            </a></li></a>
+            <a href="/Myapp_runweb/wavescope">
+                <li class="label lab2">在线音波图展示</li>
+            </a>
+            <a href="/Myapp_runweb/str2musicscore">
+                <li class="label lab3">字符串生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/file2musicscore">
+                <li class="label lab4 current-lable">音频文件生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/pianoOnLine">
+                <li class="label lab5">HTML5网页钢琴</li>
+            </a>
+        </div>
 
     </header>
-    <div class="file-load-area">
+    <div class="file-load-area" id="area">
         <form enctype="multipart/form-data" action="/Myapp_dealfile/uploadfile/" method="POST">
-            <input type="file" name="my_file"/>
-            <br/>
-            <input type="submit" value="upload"/>
+            <input type="file" id="file" name="my_file" accept=".wav">
+            <span id="filebtn">上传WAV文件</span>
+            <input type="submit" class="submmit-button" value="提 交">
+            <span class="lable">将要上传的文件</span>
+            <span id="fname"></span>
+            <audio src="#" controls class="audio"> </audio>
+
+
         </form>
 
     </div>
-    <div class="img-show-area">
-        <p><img src="/static/musicpng/{{ musicname }}" style="width: 100%; "></p>
-    </div>
 </body>
+<script type="text/javascript" src="/static/JavaScript/fileaudio.js"></script>
 
 </html>

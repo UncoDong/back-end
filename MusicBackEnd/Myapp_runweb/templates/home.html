@@ -7,31 +7,56 @@
     <title>听音撰谱功能实现主页</title>
     <link rel="stylesheet" href="/static/CSS/base-style.css">
     <link rel="stylesheet" href="/static/CSS/homepage.css">
+    <script src="/static/JavaScript/home.js"></script>
 </head>
 
 <body>
     <header id="header">
+        <a href="/Myapp_runweb/home"><span class="home-label current-lable">听音撰谱主页</span></a>
+        <div class="lable-contaner clearfix">
+            <a href="/Myapp_runweb/metronome">
+                <li class="label lab1">网页节拍器
+            </a></li></a>
+            <a href="/Myapp_runweb/wavescope">
+                <li class="label lab2">在线音波图展示</li>
+            </a>
+            <a href="/Myapp_runweb/str2musicscore">
+                <li class="label lab3">字符串生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/file2musicscore">
+                <li class="label lab4">音频文件生成乐谱</li>
+            </a>
+            <a href="/Myapp_runweb/pianoOnLine">
+                <li class="label lab5">HTML5网页钢琴</li>
+            </a>
+        </div>
 
     </header>
     <nav class="clearfix">
 
         <ul class="id-nav">
-            <li><a href="#demo1" title="跳转到功能一介绍">网页节拍器</a></li>
-            <li><a href="#demo2" title="跳转到功能二介绍">在线音波图展示</a></li>
-            <li><a href="#demo3" title="跳转到功能三介绍">字符串生成乐谱</a></li>
-            <li><a href="#demo4" title="跳转到功能四介绍">音频文件生成乐谱</a></li>
-            <li><a href="#demo5" title="跳转到功能五介绍">网页钢琴</a></li>
+<!--            <li><a href="#demo1" title="跳转到功能一介绍">网页节拍器</a></li>-->
+<!--            <li><a href="#demo2" title="跳转到功能二介绍">在线音波图展示</a></li>-->
+<!--            <li><a href="#demo3" title="跳转到功能三介绍">字符串生成乐谱</a></li>-->
+<!--            <li><a href="#demo4" title="跳转到功能四介绍">音频文件生成乐谱</a></li>-->
+<!--            <li><a href="#demo5" title="跳转到功能五介绍">HTML5网页钢琴</a></li>-->
+            <li><a href="/Myapp_runweb/metronome" title="跳转到功能一介绍">网页节拍器</a></li>
+            <li><a href="/Myapp_runweb/wavescope" title="跳转到功能二介绍">在线音波图展示</a></li>
+            <li><a href="/Myapp_runweb/str2musicscore" title="跳转到功能三介绍">字符串生成乐谱</a></li>
+            <li><a href="/Myapp_runweb/file2musicscore" title="跳转到功能四介绍">音频文件生成乐谱</a></li>
+            <li><a href="/Myapp_runweb/pianoOnLine" title="跳转到功能五介绍">HTML5网页钢琴</a></li>
         </ul>
         <div class="img-nav">
-            <span class="prev">&lt;</span>
-            <span class="next">&gt;</span>
+            <span class="prev" id="prev">&lt;</span>
+            <span class="next" id="next">&gt;</span>
             <span class="ball-nav">
-                <span class="current"></span>
-                <span></span>
-                <span></span>
-                <span></span>
-                <span></span>
+                <span id="1" class="ball current"></span>
+                <span id="2" class="ball"></span>
+                <span id="3" class="ball"></span>
+                <span id="4" class="ball"></span>
+                <span id="5" class="ball"></span>
             </span>
+            <img style="width: 100%; transition: all 0.5s;" src="/static/img/预览1.png" alt="" id="img">
         </div>
 
     </nav>
@@ -57,7 +82,7 @@
     </div>
     <a href="#header" title="回到顶部"><span class="return-top"></span></a>
     <footer>
-        2020-5-23 by <a href="">Asakura</a>
+        2020-06-02 by <a href="https://github.com/Asa-kura/note">Asakura</a>
     </footer>
 
 </body>

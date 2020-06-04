@@ -39,6 +39,7 @@ def upload_file(request):
     if request.method == 'GET':
         return HttpResponse('就这？')
     if request.method == 'POST':
+        print(request.FILES)
         my_file = request.FILES.get("my_file", None)
         print (my_file, '++++++++++++++++++++++')
         if not my_file:
