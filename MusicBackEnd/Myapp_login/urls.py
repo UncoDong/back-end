@@ -17,15 +17,12 @@ from django.contrib import admin
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.contrib import staticfiles
-from Myapp_runweb import views
+from Myapp_login import views
 
 urlpatterns = [
-    path('home/',views.home),       # 展示主页
-    path('str2musicscore/',views.str_to_musicscore), # 显示钢琴页面
-    path('wavescope/',views.wave_scope), # 波形图
-    path('pianoOnLine/',views.piano_online), # 在线钢琴
-    path('metronome/',views.metronome), # 节拍器
-    path('file2musicscore/',views.file_to_musicscore), # 节拍器
-]
+   path(r'register/',views.register,name = 'register'),
+path(r'login/',views.login,name = 'register'),
+path(r'state/',views.login_state,name = 'register'),
+path(r'logout/',views.logout,name = 'register'),]
 #设置静态文件路径
 #urlpatterns += staticfiles_urlpatterns()

@@ -35,7 +35,7 @@ Return:
     首页的html
 '''
 def piano_online(request):
-    return render(request, 'pianoOnline.html', {})
+    return render(request, 'pianoOnLine.html', {})
 
 '''
 Summary:

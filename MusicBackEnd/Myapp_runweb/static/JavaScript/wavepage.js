@@ -210,7 +210,6 @@ var createDelayDialog = function () {
 var dialogInt;
 var dialogCancel = function () {
     clearTimeout(dialogInt);
-
     //关闭弹框，应该使用自己的弹框方式
     var elems = document.querySelectorAll(".waitDialog");
     for (var i = 0; i < elems.length; i++) {

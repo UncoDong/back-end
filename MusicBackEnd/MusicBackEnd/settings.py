@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['47.92.85.59','127.0.0.1','localhost']
 
 INSTALLED_APPS = [
     'Myapp_dealfile',
+    'Myapp_login',
     'Myapp_runweb',
     'Myapp_covert2musicscore',
     'django.contrib.admin',

@@ -21,6 +21,7 @@ urlpatterns = [
     path('Myapp_dealfile/', include('Myapp_dealfile.urls')),
     path('Myapp_covert2musicscore/', include('Myapp_covert2musicscore.urls')),
     path('Myapp_runweb/', include('Myapp_runweb.urls')),
+    path('Myapp_login/', include('Myapp_login.urls')),
     path('admin/', admin.site.urls),
     path('favicon.ico',RedirectView.as_view(url=r'static/favicon.ico')),
 ]
