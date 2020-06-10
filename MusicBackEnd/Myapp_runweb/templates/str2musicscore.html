@@ -16,8 +16,8 @@
         <a href="/Myapp_runweb/home"><span class="home-label">听音撰谱主页</span></a>
         <div class="lable-contaner clearfix">
             <a href="/Myapp_runweb/metronome">
-                <li class="label lab1">网页节拍器
-            </a></li></a>
+                <li class="label lab1 ">网页节拍器</li>
+            </a>
             <a href="/Myapp_runweb/wavescope">
                 <li class="label lab2">在线音波图展示</li>
             </a>
@@ -31,7 +31,8 @@
                 <li class="label lab5">HTML5网页钢琴</li>
             </a>
         </div>
-
+        <span style="float: right;">登录</span>
+        <a href="/Myapp_runweb/pianoOnLine" style="float: right;"><span>username</span></a>
     </header>
     <div class="piano-window">
         <div class="piano-wrap piano responsive-section-a visible">
@@ -435,9 +436,9 @@
             </div>
         </div>
     </div>
-<!--    <div class="ruler-window">-->
+    <div class="ruler-window">
 
-<!--    </div>-->
+    </div>
     <div class="method-bts clearfix">
         <span class="note-db bt1" onclick="alterNote('add')">+</span>
         <span class="note-hf bt2" onclick="alterNote('minus')">-</span>
@@ -452,7 +453,7 @@
             <ul class="note-container" id="notes"></ul>
 
         </div>
-        <form action="/Myapp_covert2musicscore/changestr2pic/" method="POST" class="form-str">
+        <form action="#" method="POST" class="form-str">
             <h2>上传字符串</h2>
             <textarea class="str-area" name="str-container" id="str-container" class="strarea" readonly></textarea>
             <input type="submit" class="submmit-button" value="提 交">
@@ -460,11 +461,11 @@
         </form>
     </div>
 
-<!--    <footer>-->
-<!--        2020-06-02 by <a href="https://github.com/Asa-kura/note">Asakura</a>-->
-<!--    </footer>-->
+    <footer>
+        2020-06-02 by <a href="https://github.com/Asa-kura/note">Asakura</a>
+    </footer>
 </body>
-<script type="text/javascript" src="/static/JavaScript/piano.js"></script>
+<script type="text/javascript" src="JavaScript/piano.js"></script>
 
 
 </html>

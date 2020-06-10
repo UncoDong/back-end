@@ -131,8 +131,6 @@ function recUpload() {
         return;
     };
 
-    //本例子假设使用原始XMLHttpRequest请求方式，实际使用中自行调整为自己的请求方式
-    //录音结束时拿到了blob文件对象，可以用FileReader读取出内容，或者用FormData上传
     var api = "https://xx.xx/test_request";
     var onreadystatechange = function (title) {
         return function () {
@@ -149,14 +147,12 @@ function recUpload() {
     };
     reclog("开始上传到" + api + "，请求稍后...");
 
-    /***方式一：将blob文件转成base64纯文本编码，使用普通application/x-www-form-urlencoded表单上传***/
+
     var reader = new FileReader();
     reader.onloadend = function () {
         var postData = "";
-        postData += "mime=" + encodeURIComponent(blob.type);//告诉后端，这个录音是什么格式的，可能前后端都固定的mp3可以不用写
-        postData += "&upfile_b64=" + encodeURIComponent((/.+;\s*base64\s*,\s*(.+)$/i.exec(reader.result) || [])[1]) //录音文件内容，后端进行base64解码成二进制
-        //...其他表单参数
-
+        postData += "mime=" + encodeURIComponent(blob.type);
+        postData += "&upfile_b64=" + encodeURIComponent((/.+;\s*base64\s*,\s*(.+)$/i.exec(reader.result) || [])[1]) //录音文件
         var xhr = new XMLHttpRequest();
         xhr.open("POST", api);
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -165,11 +161,9 @@ function recUpload() {
     };
     reader.readAsDataURL(blob);
 
-    /***方式二：使用FormData用multipart/form-data表单上传文件***/
-    var form = new FormData();
-    form.append("upfile", blob, "recorder.mp3"); //和普通form表单并无二致，后端接收到upfile参数的文件，文件名为recorder.mp3
-    //...其他表单参数
 
+    var form = new FormData();
+    form.append("upfile", blob, "recorder.mp3"); //和普通form表单并无二
     var xhr = new XMLHttpRequest();
     xhr.open("POST", api);
     xhr.onreadystatechange = onreadystatechange("上传方式二【FormData】");
@@ -210,6 +204,7 @@ var createDelayDialog = function () {
 var dialogInt;
 var dialogCancel = function () {
     clearTimeout(dialogInt);
+
     //关闭弹框，应该使用自己的弹框方式
     var elems = document.querySelectorAll(".waitDialog");
     for (var i = 0; i < elems.length; i++) {

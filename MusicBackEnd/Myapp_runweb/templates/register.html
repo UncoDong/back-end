@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>注册</title>
+    <link rel="stylesheet" href="/static/CSS/base-style.css">
+    <link rel="stylesheet" href="/static/CSS/login.css">
+</head>
+
+<body>
+    <form action="/Myapp_login/register/" method="post" class="login-form">
+        <div class="tit">
+            <p>注册新用户</p>
+        </div>
+        <div class="login-body">
+            <div class="us"><label for="user" style="user-select: none;">用户名</label><input type="text" name="user"
+                    id="user" title="请输入用户名" class="user" required="required"></div>
+            <div class="ps"><label for="password" style="user-select: none;">密码</label><input type="password"
+                    name="password" title="请输入密码" class="password" id="password" required="required"></div>
+
+            <input type="submit" value="注册" class="btn">
+
+        </div>
+
+    </form>
+    <h1>{{wrong}}</h1>
+</body>
+
+</html>

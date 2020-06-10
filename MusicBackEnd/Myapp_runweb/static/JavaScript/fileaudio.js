@@ -1,11 +1,4 @@
-function playFile() {
-    console.log("调用")
-    var fileDom = document.getElementById('file');
-    var fileName = fileDom.value;
-    var audioDom = document.getElementById('audio');
-    audioDom.setAttribute('src', fileName);
-    audioDom.className = 'audio audio-after'
-}
+
 var setIntervalFun = null;
 
 function getFileName() {

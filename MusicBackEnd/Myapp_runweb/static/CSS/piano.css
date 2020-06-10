@@ -63,12 +63,6 @@ body {
 }
 
 
-html {
-    box-sizing: border-box;
-    overflow-y: scroll;
-    -webkit-text-size-adjust: 100%
-}
-
 *,
 :after,
 :before {
@@ -181,7 +175,7 @@ html.overflow-y-hidden {
 
 .piano-wrap.piano .piano-key-wrap .wkey {
     float: left;
-    width: 2.776%;
+    width: 2.606%;
     height: 100%;
     margin: 0 auto;
     background: #fff;

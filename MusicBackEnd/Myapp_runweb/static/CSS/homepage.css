@@ -1,12 +1,4 @@
-header {
-    height: 50px;
-    width: 100%;
-    position: sticky;
-    background-color: skyblue;
-    top: 0px;
-    z-index: 1;
-    opacity: 0.8;
-}
+
 body {
     background-color: rgba(236, 231, 231, 0.911)
 }
